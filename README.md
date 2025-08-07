@@ -1,0 +1,1 @@
+Este repositório contém uma solução em Java para um jogo de Sudoku interativo, utilizando conceitos de orientação a objetos e validações de status e regras do jogo. A implementação também explora a API Stream para processamento funcional e eficiente dos dados.
