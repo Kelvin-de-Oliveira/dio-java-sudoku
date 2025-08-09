@@ -104,6 +104,6 @@ public class Main {
 
 
         TerminalView terminalView = new TerminalView();
-        terminalView.printBoard(game.getBoard());
+        terminalView.printBoard(game);
     }
 }

@@ -6,17 +6,19 @@ import java.util.stream.IntStream;
 import java.util.Arrays;
 
 public class Game {
-    private final Board board;
+    private final List<List<Cell>> board; // agora direto aqui
     private GameStatus status;
 
     public Game(String[] args) {
         this.status = GameStatus.NAO_INICIADO;
+
         // crio uma matriz 9X9 onde todas as celulas serao incializados como não fixa e nulas
-        List<List<Cell>> cells = IntStream.range(0, 9)
+        this.board = IntStream.range(0, 9)
                 .mapToObj(i -> IntStream.range(0, 9)
-                        .mapToObj(j -> new Cell(null, false, i, j))
+                        .mapToObj(j -> new Cell(0, false, i, j))
                         .collect(Collectors.toList()))
                 .collect(Collectors.toList());
+
         //percorre os argumentos fornecidos e preenhcer a estrutura de dados Board
         Arrays.stream(args).forEach(arg -> {
             try {
@@ -31,7 +33,7 @@ public class Game {
 
                 if (row >= 0 && row < 9 && col >= 0 && col < 9) {
                     Cell cell = new Cell(number, fixed, row, col);
-                    cells.get(row).set(col, cell);
+                    this.board.get(row).set(col, cell);
                 } else {
                     System.out.println("Coordenadas inválidas no argumento: " + arg);
                 }
@@ -39,16 +41,13 @@ public class Game {
                 System.out.println("Erro ao processar argumento: " + arg + " - " + e.getMessage());
             }
         });
-
-        this.board = new Board(cells);
     }
 
-    public Board getBoard() {
+    public List<List<Cell>> getBoard() {
         return board;
     }
 
     public void startGame() {
-        // TODO implementar a logica de inciiar o jogo
-
+        // TODO implementar lógica de iniciar o jogo
     }
 }
