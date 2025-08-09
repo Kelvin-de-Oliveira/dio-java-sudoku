@@ -1,5 +1,6 @@
 package br.com.sudoku.controller;
 
-public class GameController
-{
+public class GameController{
+    private
 }
+

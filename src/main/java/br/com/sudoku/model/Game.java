@@ -47,7 +47,6 @@ public class Game {
         return board;
     }
 
-    public void startGame() {
-        // TODO implementar lógica de iniciar o jogo
-    }
+
+
 }
