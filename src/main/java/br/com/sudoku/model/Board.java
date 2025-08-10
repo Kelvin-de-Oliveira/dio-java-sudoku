@@ -24,5 +24,13 @@ public class Board {
         cell.setNumber(number);
         return true;
     }
+    public boolean removeCellNumber(int row, int col) {
+        Cell cell = cells.get(row).get(col);
+        if (cell.isFixed()) {
+            return false;
+        }
+        cell.setNumber(null);
+        return true;
+    }
 
 }

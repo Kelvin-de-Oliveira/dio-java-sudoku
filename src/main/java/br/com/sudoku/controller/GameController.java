@@ -47,8 +47,16 @@ public class GameController {
                         view.printMessage("Não é possível alterar uma célula fixa.");
                     }
                     break;
-                case 2: // TODO Remover número
+                case 2: // Remover número
+                    int rowToRemove = view.runUntilGetValidNumber(0, 8, "Informe a linha (0-8) da célula que deseja limpar: ");
+                    int colToRemove = view.runUntilGetValidNumber(0, 8, "Informe a coluna (0-8) da célula que deseja limpar: ");
 
+                    boolean removed = board.removeCellNumber(rowToRemove, colToRemove);
+                    if (removed) {
+                        view.printMessage("Número removido com sucesso.");
+                    } else {
+                        view.printMessage("Não é possível remover uma célula fixa.");
+                    }
                     break;
                 case 3: // TODO Verificar jogo
 
