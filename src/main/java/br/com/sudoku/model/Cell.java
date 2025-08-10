@@ -24,9 +24,8 @@ public class Cell {
     }
 
     public void setNumber(Integer number) {
-        if (!fixed) {
-            this.number = number;
-        }
+        this.number = number;
+
     }
 
     public boolean isFixed() {

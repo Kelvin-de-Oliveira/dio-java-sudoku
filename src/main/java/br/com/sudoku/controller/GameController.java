@@ -35,8 +35,17 @@ public class GameController {
         while (running) {
             int option = view.showMenuAndGetOption();
             switch (option) {
-                case 1: // TODO Adicionar número
+                case 1: // Adicionar número
+                    int row = view.runUntilGetValidNumber(0, 8, "Informe a linha (0-8): ");
+                    int col = view.runUntilGetValidNumber(0, 8, "Informe a coluna (0-8): ");
+                    int number = view.runUntilGetValidNumber(1, 9, "Informe o número a adicionar (1-9): ");
 
+                    boolean success = board.setCellNumber(row, col, number);
+                    if (success) {
+                        view.printMessage("Número adicionado com sucesso.");
+                    } else {
+                        view.printMessage("Não é possível alterar uma célula fixa.");
+                    }
                     break;
                 case 2: // TODO Remover número
 
@@ -94,5 +103,6 @@ public class GameController {
         this.board = new Board(cells);
         //view.printBoard(board);
     }
+
 
 }

@@ -8,11 +8,33 @@ import java.util.Scanner;
 
 public class TerminalView {
 
+    private final Scanner scanner = new Scanner(System.in);
+
     public boolean askYesNo(String message) {
         System.out.println(message);
-        Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine().trim().toLowerCase();
         return input.equals("s") || input.equals("sim");
+    }
+
+    public int askInt(String message) {
+        System.out.print(message);
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.print("Entrada inválida. " + message);
+            }
+        }
+    }
+
+    public int runUntilGetValidNumber(final int min, final int max, final String message) {
+        int current = askInt(message);
+        while (current < min || current > max) {
+            System.out.printf("ERRO: a entrada deve ser um numero entre %d e %d\n", min, max);
+            current = askInt(message);
+        }
+        return current;
     }
 
     public int showMenuAndGetOption() {

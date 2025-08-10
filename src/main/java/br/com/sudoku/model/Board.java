@@ -16,6 +16,13 @@ public class Board {
         return cells;
     }
 
-
+    public boolean setCellNumber(int row, int col, int number) {
+        Cell cell = cells.get(row).get(col);
+        if (cell.isFixed()) {
+            return false;
+        }
+        cell.setNumber(number);
+        return true;
+    }
 
 }
