@@ -23,9 +23,15 @@ public class Cell {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public boolean setNumber(Integer number) {
+        if (fixed) {
+            return false;
+        }
         this.number = number;
-
+        return true;
+    }
+    public boolean removeNumber() {
+        return setNumber(null);
     }
 
     public int getRow() {
@@ -48,6 +54,9 @@ public class Cell {
 
     public boolean isFixed() {
         return fixed;
+    }
+    public boolean isFilled() {
+        return number != null;
     }
 
     public boolean isValid() {

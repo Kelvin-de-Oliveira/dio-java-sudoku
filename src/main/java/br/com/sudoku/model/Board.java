@@ -1,9 +1,6 @@
 package br.com.sudoku.model;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.Arrays;
 
 public class Board {
     private final List<List<Cell>> cells;
@@ -18,22 +15,14 @@ public class Board {
 
     public boolean setCellNumber(int row, int col, int number) {
         Cell cell = cells.get(row).get(col);
-        if (cell.isFixed()) {
-            return false;
-        }
-        cell.setNumber(number);
-        return true;
+        return cell.setNumber(number);
     }
     public boolean removeCellNumber(int row, int col) {
         Cell cell = cells.get(row).get(col);
-        if (cell.isFixed()) {
-            return false;
-        }
-        cell.setNumber(null);
-        return true;
+        return cell.removeNumber();
     }
 
-    public int hasErros() {
+    public int hasErrors() {
         return (int) cells.stream()
                 .flatMap(List::stream)
                 .filter(cell -> !cell.isFixed())
@@ -51,7 +40,7 @@ public class Board {
         return cells.stream()
                 .flatMap(List::stream)
                 .filter(cell -> !cell.isFixed())
-                .allMatch(cell -> cell.getNumber() != null);
+                .allMatch(Cell::isFilled);
     }
 
     public GameStatus getGameStatus() {

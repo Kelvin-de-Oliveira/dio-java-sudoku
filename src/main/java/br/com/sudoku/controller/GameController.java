@@ -64,7 +64,7 @@ public class GameController {
                     break;
                 case 4: // Verificar status do jogo
                     GameStatus status = board.getGameStatus();
-                    int errors = board.hasErros();
+                    int errors = board.hasErrors();
 
                     switch (status) {
                         case NAO_INICIADO:
@@ -88,8 +88,11 @@ public class GameController {
                             break;
                     }
                     break;
-                case 5: // TODO Limpar tudo
-
+                case 5: // Limpar tudo
+                    board.clearBoard();
+                    view.printMessage("Todos os números inseridos foram removidos. O tabuleiro foi limpo.");
+                    view.printMessage("O status do jogo agora é: NÃO INICIADO.");
+                    view.printBoard(board);
                     break;
                 case 6: // Finalizar jogo
                     running = false;
