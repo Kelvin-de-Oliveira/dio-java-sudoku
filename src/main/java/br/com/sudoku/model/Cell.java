@@ -42,10 +42,6 @@ public class Cell {
         return col;
     }
 
-    public int getPretend() {
-        return pretend;
-    }
-
     public void clean(){
         if(!fixed){
             this.number = null;
