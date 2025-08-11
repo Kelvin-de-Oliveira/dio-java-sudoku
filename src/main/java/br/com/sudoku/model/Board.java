@@ -33,4 +33,41 @@ public class Board {
         return true;
     }
 
+    public int hasErros() {
+        return (int) cells.stream()
+                .flatMap(List::stream)
+                .filter(cell -> !cell.isFixed())
+                .filter(cell -> !cell.isValid())
+                .count();
+    }
+
+    public boolean hasInsertedNumber() {
+        return cells.stream()
+                .flatMap(List::stream)
+                .anyMatch(cell -> !cell.isFixed() && cell.getNumber() != null);
+    }
+
+    public boolean isFull() {
+        return cells.stream()
+                .flatMap(List::stream)
+                .filter(cell -> !cell.isFixed())
+                .allMatch(cell -> cell.getNumber() != null);
+    }
+
+    public GameStatus getGameStatus() {
+        if (!hasInsertedNumber()) {
+            return GameStatus.NAO_INICIADO;
+        }
+        if (!isFull()) {
+            return GameStatus.INCOMPLETO;
+        }
+        return GameStatus.COMPLETO;
+    }
+
+    public void clearBoard() {
+        cells.stream()
+                .flatMap(List::stream)
+                .forEach(Cell::clean);  // cada célula decide se limpa ou não
+    }
+
 }

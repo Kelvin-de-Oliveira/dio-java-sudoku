@@ -12,9 +12,9 @@ public class Cell {
         this.fixed = fixed;
         this.row = row;
         this.col = col;
-        if(fixed) {
-           this.number = pretend;
-       }else{
+        if (fixed) {
+            this.number = pretend;
+        } else {
             this.number = null;
         }
     }
@@ -28,10 +28,6 @@ public class Cell {
 
     }
 
-    public boolean isFixed() {
-        return fixed;
-    }
-
     public int getRow() {
         return row;
     }
@@ -42,6 +38,23 @@ public class Cell {
 
     public int getPretend() {
         return pretend;
+    }
+
+    public void clean(){
+        if(!fixed){
+            this.number = null;
+        }
+    }
+
+    public boolean isFixed() {
+        return fixed;
+    }
+
+    public boolean isValid() {
+        if (number == null) {
+            return true;
+        }
+        return number.equals(pretend);
     }
 
 

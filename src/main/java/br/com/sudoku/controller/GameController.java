@@ -2,6 +2,7 @@ package br.com.sudoku.controller;
 
 import br.com.sudoku.model.Board;
 import br.com.sudoku.model.Cell;
+import br.com.sudoku.model.GameStatus;
 import br.com.sudoku.view.TerminalView;
 
 import java.util.List;
@@ -58,11 +59,34 @@ public class GameController {
                         view.printMessage("Não é possível remover uma célula fixa.");
                     }
                     break;
-                case 3: // TODO Verificar jogo
-
+                case 3: // Verificar jogo
+                    view.printBoard(board);
                     break;
-                case 4: // TODO Verificar status do jogo
+                case 4: // Verificar status do jogo
+                    GameStatus status = board.getGameStatus();
+                    int errors = board.hasErros();
 
+                    switch (status) {
+                        case NAO_INICIADO:
+                            view.printMessage("O jogo ainda não foi iniciado. Nenhum número inserido pelo jogador.");
+                            break;
+                        case INCOMPLETO:
+                            view.printMessage("O jogo está incompleto.");
+                            if (errors > 0) {
+                                view.printMessage("O jogo possui " + errors + " erro(s).");
+                            } else {
+                                view.printMessage("Nenhum erro encontrado até agora.");
+                            }
+                            break;
+                        case COMPLETO:
+                            view.printMessage("O jogo está completo.");
+                            if (errors > 0) {
+                                view.printMessage("Porém possui " + errors + " erro(s).");
+                            } else {
+                                view.printMessage("Parabéns! Nenhum erro encontrado.");
+                            }
+                            break;
+                    }
                     break;
                 case 5: // TODO Limpar tudo
 
