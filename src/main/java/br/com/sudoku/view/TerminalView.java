@@ -45,6 +45,7 @@ public class TerminalView {
         System.out.println("4 - Verificar status do jogo");
         System.out.println("5 - Limpar tudo");
         System.out.println("6 - Finalizar jogo");
+        System.out.println("7 - Encerrar jogo");
         System.out.print("Escolha uma opção: ");
 
         Scanner scanner = new Scanner(System.in);

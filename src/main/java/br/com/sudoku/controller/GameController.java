@@ -94,8 +94,22 @@ public class GameController {
                     view.printMessage("O status do jogo agora é: NÃO INICIADO.");
                     view.printBoard(board);
                     break;
-                case 6: // Finalizar jogo
+                case 6: // Finalizar jogo - validar antes de encerrar
+                    GameStatus currentStatus = board.getGameStatus();
+                    int currentErrors = board.hasErrors();
+
+                    if (currentStatus == GameStatus.COMPLETO && currentErrors == 0) {
+                        view.printMessage("Parabéns! O jogo está completo e sem erros. Finalizando partida.");
+                        running = false;
+                    } else if (currentStatus != GameStatus.COMPLETO) {
+                        view.printMessage("O jogo ainda não está completo. Existem células a serem preenchidas.");
+                    } else {
+                        view.printMessage("O jogo possui " + currentErrors + " erro(s). Corrija-os antes de finalizar.");
+                    }
+                    break;
+                case 7: // Encerrar jogo de fato
                     running = false;
+                    view.printMessage("Jogo encerrado pelo usuário.");
                     break;
                 default:
                     view.printMessage("Opção inválida.");
