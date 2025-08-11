@@ -54,28 +54,15 @@ public class GameController {
     }
 
     public void prepareBoard(String initialValuesString) {
-        List<List<Cell>> cells = IntStream.range(0, 9)
-                .mapToObj(row -> IntStream.range(0, 9)
-                        .mapToObj(col -> new Cell(0, false, row, col))
-                        .collect(Collectors.toList()))
-                .collect(Collectors.toList());
+        List<List<Cell>> cells = createEmptyBoard();
 
         String[] initialValues = initialValuesString.trim().split("\\s+");
 
         for (String arg : initialValues) {
             try {
-                String[] sections = arg.split(";");
-                String[] pos = sections[0].split(",");
-                String[] data = sections[1].split(",");
-
-                int row = Integer.parseInt(pos[0]);
-                int col = Integer.parseInt(pos[1]);
-                int number = Integer.parseInt(data[0]);
-                boolean fixed = Boolean.parseBoolean(data[1]);
-
-                if (row >= 0 && row < 9 && col >= 0 && col < 9) {
-                    Cell cell = new Cell(number, fixed, row, col);
-                    cells.get(row).set(col, cell);
+                Cell cell = parseCellFromString(arg);
+                if (isValidPosition(cell.getRow(), cell.getCol())) {
+                    cells.get(cell.getRow()).set(cell.getCol(), cell);
                 } else {
                     view.printMessage("Coordenadas inválidas no argumento: " + arg);
                 }
@@ -85,8 +72,33 @@ public class GameController {
         }
 
         this.board = new Board(cells);
-        //view.printBoard(board);
     }
+
+    private List<List<Cell>> createEmptyBoard() {
+        return IntStream.range(0, 9)
+                .mapToObj(row -> IntStream.range(0, 9)
+                        .mapToObj(col -> new Cell(0, false, row, col))
+                        .collect(Collectors.toList()))
+                .collect(Collectors.toList());
+    }
+
+    private Cell parseCellFromString(String arg) {
+        String[] sections = arg.split(";");
+        String[] pos = sections[0].split(",");
+        String[] data = sections[1].split(",");
+
+        int row = Integer.parseInt(pos[0]);
+        int col = Integer.parseInt(pos[1]);
+        int number = Integer.parseInt(data[0]);
+        boolean fixed = Boolean.parseBoolean(data[1]);
+
+        return new Cell(number, fixed, row, col);
+    }
+
+    private boolean isValidPosition(int row, int col) {
+        return row >= 0 && row < 9 && col >= 0 && col < 9;
+    }
+
 
     private void handleAddNumber() {
         int row = view.runUntilGetValidNumber(0, 8, "Informe a linha (0-8): ");
@@ -109,7 +121,7 @@ public class GameController {
         if (removed) {
             view.printMessage("Número removido com sucesso.");
         } else {
-            view.printMessage("Não é possível remover uma célula fixa.");
+            view.printMessage("Não foi possível remover o número. A célula pode estar fixa ou já estar vazia.");
         }
     }
 
