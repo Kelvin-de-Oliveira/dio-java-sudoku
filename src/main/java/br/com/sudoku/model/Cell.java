@@ -31,7 +31,7 @@ public class Cell {
         return true;
     }
     public boolean removeNumber() {
-        return setNumber(null);
+        return number != null && setNumber(null);
     }
 
     public int getRow() {
@@ -55,6 +55,7 @@ public class Cell {
     public boolean isFixed() {
         return fixed;
     }
+
     public boolean isFilled() {
         return number != null;
     }
